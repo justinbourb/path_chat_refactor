@@ -30,17 +30,11 @@ class RegistrationForm(FlaskForm):
     telephone = StringField(('Telephone'), validators=[DataRequired()])
     submit = SubmitField(('Submit'))
 
-    ''' not in use
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError(_('Please use a different username.'))
-    '''
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError(_('Please use a different email address.'))
+            raise ValidationError(('Please use a different email address.'))
 
 
 class ResetPasswordRequestForm(FlaskForm):
@@ -65,7 +59,7 @@ class ChangePasswordForm(FlaskForm):
 
     def validate_current_password(self, current_password):
         if not current_user.check_password(current_password.data):
-            raise ValidationError(_('Invalid current password, please try again.'))
+            raise ValidationError(('Invalid current password, please try again.'))
 
 
 class EditProfileForm(FlaskForm):
@@ -78,8 +72,4 @@ class EditProfileForm(FlaskForm):
     state = StringField(('State'), validators=[DataRequired()])
     zipcode = StringField(('Zipcode'), validators=[DataRequired()])
     telephone = StringField(('Telephone'), validators=[DataRequired()])
-    submit = SubmitField(('Submit'))
-
-class PostForm(FlaskForm):
-    post = TextAreaField(('Say something'), validators=[DataRequired()])
     submit = SubmitField(('Submit'))

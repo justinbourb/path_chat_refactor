@@ -4,7 +4,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from models import User
 from werkzeug.urls import url_parse
-from forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, \
+from forms import LoginForm, RegistrationForm, EditProfileForm,  \
     ResetPasswordRequestForm, ResetPasswordForm, ChangePasswordForm
 
 
@@ -32,7 +32,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash(_('Congratulations, you are now a registered user!'))
+        flash(('Congratulations, you are now a registered user!'))
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 @app.route('/edit_profile')
