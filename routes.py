@@ -79,6 +79,7 @@ def reset_password_request():
     return render_template('reset_password_request.html',
                            title='Reset Password', form=form)
 
+#TODO: profile information is not updating
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
