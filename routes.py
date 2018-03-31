@@ -7,6 +7,7 @@ from werkzeug.urls import url_parse
 from forms import LoginForm, RegistrationForm, EditProfileForm,  \
     ResetPasswordRequestForm, ResetPasswordForm, ChangePasswordForm
 from datetime import datetime
+from email_file import send_password_reset_email
 
 @app.before_request
 def before_request():
