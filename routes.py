@@ -40,9 +40,6 @@ def register():
         flash(('Congratulations, you are now a registered user!'))
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
-@app.route('/edit_profile')
-def edit_profile():
-    return ("profile page")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -81,3 +78,62 @@ def reset_password_request():
         return redirect(url_for('login'))
     return render_template('reset_password_request.html',
                            title='Reset Password', form=form)
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    """allows users to update info / edit profile"""
+    form = EditProfileForm()
+    form.first_name.data = current_user.first_name
+    form.first_name.data = current_user.first_name
+    form.last_name.data = current_user.last_name
+    form.email.data = current_user.email
+    form.address_1.data = current_user.address_1
+    form.address_2.data = current_user.address_2
+    form.city.data = current_user.city
+    form.state.data = current_user.state
+    form.zipcode.data = current_user.zipcode
+    form.telephone.data = current_user.telephone
+    if form.validate_on_submit():
+        current_user.set_password(form.password.data)
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        current_user.address_1 = form.address_1.data
+        current_user.address_2 = form.address_2.data
+        current_user.city = form.city.data
+        current_user.state = form.state.data
+        current_user.zipcode = form.zipcode.data
+        current_user.telephone = form.telephone.data
+        db.session.commit()
+        flash(('Your changes have been saved.'))
+        return redirect(url_for('edit_profile'))
+
+    return render_template('edit_profile.html', title=('Edit Profile'),
+                           form=form)
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash(('Your password has been reset.'))
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        current_user.set_password(form.new_password.data)
+        db.session.commit()
+        flash(('Your password has been changed.'))
+        return redirect(url_for('edit_profile'))
+    return render_template('change_password.html', form=form)

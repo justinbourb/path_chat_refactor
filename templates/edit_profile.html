@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h1>{{ ('Edit Profile') }}</h1>
+    <div class="col-md-6">
+      <td width="256px"><img src="{{ current_user.avatar(256) }}"></td>
+      <p>Our site uses Gravatar, you can visit
+        <a href="https://en.gravatar.com/" target="_blank">their site</a>
+        to set one up if you like.</p>
+      <br>
+      <!-- create a button that's a link -->
+      <form method="GET" action="{{ url_for('change_password') }}">
+        <input type="submit" value="Change your password">
+      </form>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+{% endblock %}
