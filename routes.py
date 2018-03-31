@@ -95,7 +95,6 @@ def edit_profile():
     form.zipcode.data = current_user.zipcode
     form.telephone.data = current_user.telephone
     if form.validate_on_submit():
-        current_user.set_password(form.password.data)
         current_user.first_name = form.first_name.data
         current_user.last_name = form.last_name.data
         current_user.email = form.email.data
