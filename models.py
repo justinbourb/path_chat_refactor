@@ -36,7 +36,7 @@ class User(UserMixin, db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
 
-    """not implemented yet
+
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
@@ -50,7 +50,7 @@ class User(UserMixin, db.Model):
         except:
             return
         return User.query.get(id)
-        """
+        
 
 
 @login.user_loader
