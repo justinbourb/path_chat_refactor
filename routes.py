@@ -79,23 +79,24 @@ def reset_password_request():
     return render_template('reset_password_request.html',
                            title='Reset Password', form=form)
 
-#TODO: profile information is not updating
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
     """allows users to update info / edit profile"""
     form = EditProfileForm()
-    form.first_name.data = current_user.first_name
-    form.first_name.data = current_user.first_name
-    form.last_name.data = current_user.last_name
-    form.email.data = current_user.email
-    form.address_1.data = current_user.address_1
-    form.address_2.data = current_user.address_2
-    form.city.data = current_user.city
-    form.state.data = current_user.state
-    form.zipcode.data = current_user.zipcode
-    form.telephone.data = current_user.telephone
+    if request.method == 'GET':
+        form.first_name.data = current_user.first_name
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.email.data = current_user.email
+        form.address_1.data = current_user.address_1
+        form.address_2.data = current_user.address_2
+        form.city.data = current_user.city
+        form.state.data = current_user.state
+        form.zipcode.data = current_user.zipcode
+        form.telephone.data = current_user.telephone
     if form.validate_on_submit():
+        form.last_name.data = form.last_name.data
         current_user.first_name = form.first_name.data
         current_user.last_name = form.last_name.data
         current_user.email = form.email.data
@@ -107,6 +108,7 @@ def edit_profile():
         current_user.telephone = form.telephone.data
         db.session.commit()
         flash(('Your changes have been saved.'))
+
         return redirect(url_for('edit_profile'))
 
     return render_template('edit_profile.html', title=('Edit Profile'),
