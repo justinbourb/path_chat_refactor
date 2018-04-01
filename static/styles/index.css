@@ -1,6 +1,40 @@
 * {margin: 0; padding: 0;}
 
 
+/*parallax*/
+.peloris{
+  /* The image used */
+   background-image: url(/static/images/peloris.jpg);
+}
+.embed{
+  /* The image used */
+   background-image: url(/static/images/embed.jpg);
+}
+
+.peloris,.embed{
+
+   /* Set a specific height */
+   min-height: 300px;
+
+   /* Create the parallax scrolling effect */
+   background-attachment: fixed;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+
+}
+#peloris_text,#embed_text{
+  color: #777;
+  background-color:black;
+  text-align:center;
+  padding:50px 80px;
+  text-align: justify;
+  
+}
+
+
+/*photobanner*/
+
 #container {
  width: 1000px;
  overflow: hidden;
@@ -10,8 +44,6 @@
  border-style: inset;
  border-width: 10px;
 }
-
-/*photobanner*/
 
 .photobanner {
  height: 233px;
