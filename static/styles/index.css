@@ -14,13 +14,15 @@
 .peloris,.embed{
 
    /* Set a specific height */
-   min-height: 300px;
+   min-height: 150px;
 
    /* Create the parallax scrolling effect */
+   position: relative;
    background-attachment: fixed;
    background-position: center;
    background-repeat: no-repeat;
    background-size: cover;
+   padding: 150px;
 
 }
 #peloris_text,#embed_text{
@@ -28,8 +30,10 @@
   background-color:black;
   text-align:center;
   padding:50px 80px;
-  text-align: justify;
-  
+  text-align: relative;
+  padding: 50px;
+  width: 100%;
+
 }
 
 
