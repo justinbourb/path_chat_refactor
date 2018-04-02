@@ -20,15 +20,20 @@ class Sample_Order(db.Model):
     time_in_fixative = db.Column(db.String(255))
     current_storage = db.Column(db.String(255))
     time_in_current_storage = db.Column(db.String(255))
-    decal = db.Column(db.Boolean)
+    decal = db.Column(db.Boolean, default=False)
     orientation = db.Column(db.String(255))
-    slides_per_sample = db.Column(db.Integer)
-    sections_per_slide = db.Column(db.Integer)
-    section_thickness = db.Column(db.Integer)
-    number_of_H_E = db.Column(db.Integer)
+    slides_per_sample = db.Column(db.String(255))
+    sections_per_slide = db.Column(db.String(255))
+    section_thickness = db.Column(db.String(255))
+    number_of_H_E = db.Column(db.String(255))
     special_stain_name = db.Column(db.String(255))
-    number_of_specials = db.Column(db.Integer)
+    number_of_specials = db.Column(db.String(255))
     region_of_interest = db.Column(db.String(2000))
     special_instructions = db.Column(db.String(2000))
-    turn_around_time = db.Column(db.Integer)
-    slide_scanning = db.Column(db.Boolean)
+    turn_around_time = db.Column(db.String(255))
+    slide_scanning = db.Column(db.Boolean, default=False)
+
+    """The __repr__ method tells Python how to print objects of this
+    class, which is going to be useful for debugging."""
+    def __repr__(self):
+        return '{}'.format(self.id)

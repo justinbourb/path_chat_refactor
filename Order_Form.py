@@ -17,7 +17,7 @@ class Sample_Order_Form(FlaskForm):
     time_in_current_storage = StringField(('Length of time in current storage solution'))
     decal = BooleanField(('Do samples require decalcification?'), validators=[DataRequired()])
     orientation = TextAreaField(('Please describe sample orientation (cross-section, longitudinal, saggital, coronal, etc)'))
-    slide_per_sample = StringField(('Number of slides per sample'), validators=[DataRequired()])
+    slides_per_sample = StringField(('Number of slides per sample'), validators=[DataRequired()])
     sections_per_slide = StringField(('Number of sections per sample'))
     section_thickness = StringField(('Section Thickness (5 microns is recommended)'))
     number_of_H_E = StringField(('How many H&E slides?'))

@@ -22,8 +22,10 @@ class User(UserMixin, db.Model):
     telephone = db.Column(db.String(255))
     last_seen = db.Column(db.DateTime)
 
+    """The __repr__ method tells Python how to print objects of this
+    class, which is going to be useful for debugging."""
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.first_name)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

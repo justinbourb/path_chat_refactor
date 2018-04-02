@@ -147,7 +147,7 @@ def change_password():
 @login_required
 def new_order():
     form = Sample_Order_Form()
-    order_number = Sample_Order.query.filter(Sample_Order.id).first()
+    order_number = len(Sample_Order.query.all())+1
     if order_number == None:
         order_number = 1
     if form.validate_on_submit():
@@ -164,4 +164,6 @@ def new_order():
         db.session.commit()
         flash('Your order has been placed.  Thank you for your business!')
         return redirect(url_for('index'))
+    else:
+        flash('oops')
     return render_template('new_order.html', title='New Order', form=form, order_number=order_number)
