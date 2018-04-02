@@ -20,7 +20,7 @@ class Sample_Order_Form(FlaskForm):
     slide_per_sample = StringField(('Number of slides per sample'), validators=[DataRequired()])
     sections_per_slide = StringField(('Number of sections per sample'))
     section_thickness = StringField(('Section Thickness (5 microns is recommended)'))
-    number_of_H_E = StringField(('How many sections per slide?'))
+    number_of_H_E = StringField(('How many H&E slides?'))
     special_stain_name = StringField(('Special Stain requested'))
     number_of_specials = StringField(('Number of special stains per sample'))
     turn_around_time = StringField(('Turn around time request (1,2,3 or 10 days)'))

@@ -147,6 +147,9 @@ def change_password():
 @login_required
 def new_order():
     form = Sample_Order_Form()
+    order_number = Sample_Order.query.filter(Sample_Order.id).first()
+    if order_number == None:
+        order_number = 1
     if form.validate_on_submit():
         sample_order = Sample_Order(species=form.species.data, tissue_types=form.tissue_types.data,
         wet_samples=form.wet_samples.data, cassettes=form.cassettes.data, paraffin_blocks=form.paraffin_blocks.data,
@@ -159,6 +162,6 @@ def new_order():
         slide_scanning=form.slide_scanning.data)
         db.session.add(sample_order)
         db.session.commit()
-        flash(sample_order)
+        flash('Your order has been placed.  Thank you for your business!')
         return redirect(url_for('index'))
-    return render_template('new_order.html', title='New Order', form=form)
+    return render_template('new_order.html', title='New Order', form=form, order_number=order_number)
