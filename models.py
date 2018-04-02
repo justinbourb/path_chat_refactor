@@ -50,8 +50,6 @@ class User(UserMixin, db.Model):
         except:
             return
         return User.query.get(id)
-        
-
 
 @login.user_loader
 def load_user(id):

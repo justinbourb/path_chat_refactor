@@ -3,6 +3,7 @@ from app import app, socketio, db
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from models import User
+from Order_Form_Models import Sample_Details, Histology_Details
 from werkzeug.urls import url_parse
 from forms import LoginForm, RegistrationForm, EditProfileForm,  \
     ResetPasswordRequestForm, ResetPasswordForm, ChangePasswordForm
@@ -16,12 +17,13 @@ def before_request():
         db.session.commit()
 
 @app.route('/chat')
+@login_required
 def chat():
     return render_template('chat.html', async_mode=socketio.async_mode)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def index():
     return render_template('index.html', title='Home')
 
@@ -140,3 +142,18 @@ def change_password():
         flash(('Your password has been changed.'))
         return redirect(url_for('edit_profile'))
     return render_template('change_password.html', form=form)
+
+@app.route('/new_order', methods=['GET', 'POST'])
+@login_required
+def new_order():
+    form = Sample_Details_Form()
+    if form.validate_on_submit():
+        sample_details = Sample_Details(species=form.species.data, tissue_types=form.tissue_types.data,
+        wet_samples=form.wet_samples.data, cassettes=form.cassettes.data, paraffin_blocks=form.paraffin_blocks.data,
+        fixative_used=form.fixative_used.data, time_in_fixative=form.time_in_fixative.data,
+        current_storage=form.current_storage.data, time_in_current_storage=form.time_in_current_storage.data)
+        db.session.add(sample_details)
+        db.session.commit()
+        flash(sample_details)
+        return redirect(url_for('index'))
+    return render_template('new_order.html', title='New Order', form=form)

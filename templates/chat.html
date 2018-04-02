@@ -52,6 +52,7 @@
 
         });
     </script>
+
 </head>
 <body>
   <script>
@@ -60,7 +61,6 @@
   document.broadcast_data.reset();
   }
   </script>
-
     <div class="row">
       <div class="column">
         <!--left side of page-->
@@ -77,7 +77,10 @@
       <!--right side of page-->
       <div class="column">
       <h1>Slide ID:200-001-Trichrome-001</h1>
-      <img src="static/images/Tri.jpg" alt="Tri broken" style="width:600px; height:400px">
+      <!-- can we use a websocket range slider here so both users scroll the same image? -->
+        <div id="image_container">
+          <img src="static/images/Tri.jpg" alt="Tri broken" style="width:600px; height:400px;">
+        </div>
       </div>
     </div>
 
