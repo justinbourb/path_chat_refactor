@@ -5,10 +5,12 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 from app import app, db, login
+from models import User
 
-class Sample_Details(db.Model):
+class Sample_Order(db.Model):
     """db for creating histology orders"""
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     species = db.Column(db.String(255))
     tissue_types = db.Column(db.String(255))
     wet_samples = db.Column(db.String(255))
@@ -18,10 +20,6 @@ class Sample_Details(db.Model):
     time_in_fixative = db.Column(db.String(255))
     current_storage = db.Column(db.String(255))
     time_in_current_storage = db.Column(db.String(255))
-
-class Histology_Details(db.Model):
-    """db for creating histology orders"""
-    id = db.Column(db.Integer, primary_key=True)
     decal = db.Column(db.Boolean)
     orientation = db.Column(db.String(255))
     slides_per_sample = db.Column(db.Integer)
