@@ -3,9 +3,11 @@ from app import app, socketio, db
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from models import User
+from Order_Form_Models import Sample_Order
 from werkzeug.urls import url_parse
 from forms import LoginForm, RegistrationForm, EditProfileForm,  \
     ResetPasswordRequestForm, ResetPasswordForm, ChangePasswordForm
+from Order_Form import Sample_Order_Form
 from datetime import datetime
 from email_file import send_password_reset_email
 
@@ -16,12 +18,12 @@ def before_request():
         db.session.commit()
 
 @app.route('/chat')
+@login_required
 def chat():
     return render_template('chat.html', async_mode=socketio.async_mode)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
-#@login_required
 def index():
     return render_template('index.html', title='Home')
 
@@ -140,3 +142,28 @@ def change_password():
         flash(('Your password has been changed.'))
         return redirect(url_for('edit_profile'))
     return render_template('change_password.html', form=form)
+
+@app.route('/new_order', methods=['GET', 'POST'])
+@login_required
+def new_order():
+    form = Sample_Order_Form()
+    order_number = len(Sample_Order.query.all())+1
+    if order_number == None:
+        order_number = 1
+    if form.validate_on_submit():
+        sample_order = Sample_Order(species=form.species.data, tissue_types=form.tissue_types.data,
+        wet_samples=form.wet_samples.data, cassettes=form.cassettes.data, paraffin_blocks=form.paraffin_blocks.data,
+        fixative_used=form.fixative_used.data, time_in_fixative=form.time_in_fixative.data,
+        current_storage=form.current_storage.data, time_in_current_storage=form.time_in_current_storage.data,
+        decal=form.decal.data, orientation=form.orientation.data, slides_per_sample=form.slides_per_sample.data,
+        sections_per_slide=form.sections_per_slide.data, section_thickness=form.section_thickness.data,
+        number_of_H_E=form.number_of_H_E.data, special_stain_name=form.special_stain_name.data,
+        number_of_specials=form.number_of_specials.data, turn_around_time=form.turn_around_time.data,
+        slide_scanning=form.slide_scanning.data)
+        db.session.add(sample_order)
+        db.session.commit()
+        flash('Your order has been placed.  Thank you for your business!')
+        return redirect(url_for('index'))
+    else:
+        flash('oops')
+    return render_template('new_order.html', title='New Order', form=form, order_number=order_number)
