@@ -1,7 +1,5 @@
 This is an example python flask pathology laboratory website using an sqlight database with websockets chat.
-The app provides users a login page, custom order form and chat room to discuss slide images online.
-
-![image](https://github.com/justinbourb/path_chat_refactor/blob/master/diagram.png)
+The app provides users a login page, custom order form and chat room to discuss slide images online.  This project was "completed" in 2018.
 
 ## Installation & setup
 - Download the repo from github to your local environment.  This app was built using Windows 10.
@@ -16,12 +14,13 @@ The app provides users a login page, custom order form and chat room to discuss 
     - Python interpreter: set as path to your python install (or virtual environment for this project)
     - Check: Add content roots to PYTHONPATH
     - Check: Add source roots to PYTHONPATH
-    
+    ![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/Pycharm_run_configurations.JPG)
 ## Running the app
 - With the project open select the Pycharm terminal and type 'flask run' (without quotations)
     - Note: This is a little different than the standard instructions for running a flask app.  
     Pycharm behaves differently.
 - The local server should be running at 127.0.0.1:5000 as specified in the terminal
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/Pycharm_flask_run.JPG)
 
 ## App details
 - The PathChat website requires users to log in to access both the chat (powered by Websockets) 
@@ -44,6 +43,16 @@ The app provides users a login page, custom order form and chat room to discuss 
     - flask db downgrade
         - This undoes the last upgrade
 
+## Viewing data in the database
+- Data can be viewed via the PyCharm terminal 
+    - from app import db
+    - from Order_Form_Models import Sample_Order
+    - orders = Sample_Order.query.all()
+    - from models import User
+    - users = Users.query.all()
+- Query data can be modified by changing the def __repr__(self): functions for the User or Sample_Order models.
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/database_access_orders_from_terminal.JPG)
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/database_access_users_from_terminal.JPG)
 ## Further database explanations
 - The database stores the user information and orders placed via the order form page.
 - Alembic maintains a migration repository, which is a directory in which it stores its migration scripts. 
@@ -58,3 +67,10 @@ The app provides users a login page, custom order form and chat room to discuss 
     application models. In this case, since there is no previous database, the automatic migration will add 
     the entire User model to the migration script. The flask db migrate sub-command generates these automatic
     migrations: flask db migrate -m "your message"
+    
+## Website Images
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/diagram.png)
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/path_chat_main_page.png)
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/Profile_page.JPG)
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/order_form.JPG)
+![image](https://github.com/justinbourb/path_chat_refactor/blob/master/static/images/ReadMe_images/chat_page.JPG)
