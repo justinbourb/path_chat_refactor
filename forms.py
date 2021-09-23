@@ -5,6 +5,11 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
     Length
 from models import User
 from flask_login import current_user
+import email_validator
+
+"""
+Purpose: This file contains class definitions for the various forms used in the app.
+"""
 
 
 class LoginForm(FlaskForm):
@@ -30,7 +35,6 @@ class RegistrationForm(FlaskForm):
     telephone = StringField(('Telephone'), validators=[DataRequired()])
     submit = SubmitField(('Submit'))
 
-
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
@@ -49,6 +53,7 @@ class ResetPasswordForm(FlaskForm):
                                            EqualTo('password')])
     submit = SubmitField(('Request Password Reset'))
 
+
 class ChangePasswordForm(FlaskForm):
     current_password = PasswordField(('Current Password'), validators=[DataRequired()])
     new_password = PasswordField(('New Password'), validators=[DataRequired()])
@@ -59,7 +64,7 @@ class ChangePasswordForm(FlaskForm):
 
     def validate_current_password(self, current_password):
         if not current_user.check_password(current_password.data):
-            raise ValidationError(('Invalid current password, please try again.'))
+            raise ValidationError('Invalid current password, please try again.')
 
 
 class EditProfileForm(FlaskForm):

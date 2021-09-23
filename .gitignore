@@ -1,0 +1,5 @@
+# ignore the virtual environment folder
+path_chat_venv/
+
+# ignore Pycharm files
+.idea/

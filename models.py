@@ -8,7 +8,11 @@ from app import app, db, login
 
 
 class User(UserMixin, db.Model):
-    """ users will have orders with slides associated"""
+    """
+    Purpose: This class creates the database model for users.  Users will have orders with slides associated.
+        The user passwords are stored as a hash, which greatly improves security.
+    """
+
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
@@ -38,7 +42,6 @@ class User(UserMixin, db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
 
-
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
@@ -52,6 +55,7 @@ class User(UserMixin, db.Model):
         except:
             return
         return User.query.get(id)
+
 
 @login.user_loader
 def load_user(id):
