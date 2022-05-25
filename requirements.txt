@@ -25,7 +25,7 @@ Mako==1.1.5
 MarkupSafe==2.0.1
 packaging==21.0
 pip-upgrader==1.4.15
-PyJWT==2.1.0
+PyJWT==2.4.0
 pyparsing==2.4.7
 python-engineio==4.2.1
 python-socketio==5.4.0
