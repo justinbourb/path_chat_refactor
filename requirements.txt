@@ -21,7 +21,7 @@ idna==3.2
 importlib-resources==5.2.2
 itsdangerous==2.0.1
 Jinja2==3.0.1
-Mako==1.1.5
+Mako==1.2.2
 MarkupSafe==2.0.1
 packaging==21.0
 pip-upgrader==1.4.15
